@@ -11,8 +11,8 @@ const Character = ({ character }) => {
         <Image
           src={character.image}
           alt={character.name}
-          width="500"
-          height="600"
+          width="200"
+          height="400"
         />
         <h3>{character.name}</h3>
         <p>{character.location.name}</p>

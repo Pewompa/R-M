@@ -2,10 +2,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import RelatedCharacterList from '../../components/RelatedCharacterList';
 
-const Charactero = ({ character, location, relatedCharactersArray }) => {
-  // const [location, setLocation] = useState([]);
-  console.log(relatedCharactersArray);
-  console.log(location.residents[0]);
+const Charactero = ({ character, relatedCharactersArray }) => {
   return (
     <>
       <Image
@@ -17,7 +14,10 @@ const Charactero = ({ character, location, relatedCharactersArray }) => {
       <h3>{character.name}</h3>
       <p>{character.location.name}</p>
       <p>Personajes que también estan en {character.location.name}</p>
-      <RelatedCharacterList relatedCharacters={relatedCharactersArray} />
+      <RelatedCharacterList
+        relatedCharacters={relatedCharactersArray}
+        characterId={character.id}
+      />
     </>
   );
 };
@@ -65,6 +65,7 @@ export async function getServerSideProps(context) {
     let data = await bringCharacters(location.residents[i]);
     relatedCharactersArray.push(data);
   }
+
   return {
     props: {
       character,

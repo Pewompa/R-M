@@ -4,6 +4,7 @@ import React from 'react';
 
 const RelatedCharacter = ({ character }) => {
   const locationId = character.location.url[character.location.url.length - 1];
+  console.log('insde');
   return (
     <Link href={`/character/${character.id}+${locationId}/`}>
       <a>

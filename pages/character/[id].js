@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import RelatedCharacterFetch from '../../components/RelatedCharacterFetch';
+import RelatedCharacterList from '../../components/RelatedCharacterList';
 
-const Charactero = ({ character, location, arr }) => {
+const Charactero = ({ character, location, relatedCharactersArray }) => {
   // const [location, setLocation] = useState([]);
-  console.log(arr);
+  console.log(relatedCharactersArray);
   console.log(location.residents[0]);
   return (
     <>
@@ -17,7 +17,7 @@ const Charactero = ({ character, location, arr }) => {
       <h3>{character.name}</h3>
       <p>{character.location.name}</p>
       <p>Personajes que también estan en {character.location.name}</p>
-      {/* <RelatedCharacterFetch location={location}></RelatedCharacterFetch> */}
+      <RelatedCharacterList relatedCharacters={relatedCharactersArray} />
     </>
   );
 };
@@ -51,23 +51,25 @@ export async function getServerSideProps(context) {
   );
   const location = await locationResponse.json();
 
-  let arr = [];
+  let relatedCharactersArray = [];
 
-  const bringCharacters = (numero) => {
-    return fetch(numero).then((response) => response.json());
+  const bringCharacters = async (locationId) => {
+    const response = await fetch(locationId);
+    return await response.json();
+    // return fetch(numero).then((response) => response.json());
   };
   for (let i = 0; i < location.residents.length; i++) {
     // const response = await fetch(location.residents[i]);
     // const relatedChar = await response.json();
     // arr.push(relatedChar);
     let data = await bringCharacters(location.residents[i]);
-    arr.push(data);
+    relatedCharactersArray.push(data);
   }
   return {
     props: {
       character,
       location,
-      arr,
+      relatedCharactersArray,
     },
   };
 }

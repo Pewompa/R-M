@@ -14,7 +14,6 @@ const RelatedCharacterList = ({ relatedCharacters, characterId }) => {
       {filteredCharacters.map((char, i) => (
         <RelatedCharacter key={i} character={char} />
       ))}
-      {/* <Link href={'/'}>Go Back</Link> */}
     </div>
   );
 };

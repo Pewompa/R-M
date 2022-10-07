@@ -5,17 +5,21 @@ import RelatedCharacterList from '../../components/RelatedCharacterList';
 
 const Charactero = ({ character, relatedCharactersArray }) => {
   return (
-    <>
-      <Link href={'/'}>Go Back</Link>
-      <Image
-        src={character.image}
-        alt={character.name}
-        width="200"
-        height="400"
-      />
-      <h3>{character.name}</h3>
-      <p>{character.location.name}</p>
+    <div>
+      <div className="cardo">
+        <Link href={'/'}>Go Back</Link>
+        <Image
+          src={character.image}
+          alt={character.name}
+          width="300"
+          height="300"
+          class="rounded"
+        />
+        <h3 className="text-white">{character.name}</h3>
+        <p className="text-white">{character.location.name}</p>
+      </div>
       <p>Personajes que también estan en {character.location.name}</p>
+
       <RelatedCharacterList
         relatedCharacters={relatedCharactersArray}
         characterId={character.id}
@@ -23,7 +27,7 @@ const Charactero = ({ character, relatedCharactersArray }) => {
       <button className="bg-black text-white mt-10 flex justify-left gap-5">
         <Link href={'/'}>Go Back</Link>
       </button>
-    </>
+    </div>
   );
 };
 

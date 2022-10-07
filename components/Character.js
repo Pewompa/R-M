@@ -15,9 +15,10 @@ const Character = ({ character }) => {
             alt={character.name}
             width="300"
             height="300"
+            class="rounded"
           />
-          <h3 className="text-white">{character.name}</h3>
-          <p className="text-white">{character.location.name}</p>
+          <h3 className="text-white text-[14px]">{character.name}</h3>
+          <p className="text-white  text-[9px]">{character.location.name}</p>
         </div>
       </a>
     </Link>

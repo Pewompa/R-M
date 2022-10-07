@@ -13,6 +13,12 @@ body {
     padding: theme('spacing.6');
     box-shadow: theme('boxShadow.xl');
   }
+  .cardo {
+    background-color: theme('colors.black');
+    border-radius: theme('borderRadius.lg');
+    padding: theme('spacing.6');
+    box-shadow: theme('boxShadow.xl');
+  }
   body {
     @apply bg-slate-700;
   }

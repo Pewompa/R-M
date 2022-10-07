@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import RelatedCharacter from './RelatedCharacter';
 const RelatedCharacterList = ({ relatedCharacters, characterId }) => {
@@ -9,10 +10,11 @@ const RelatedCharacterList = ({ relatedCharacters, characterId }) => {
   };
   func();
   return (
-    <div>
+    <div className="grid gap-7 grid-cols-5 grid-rows-2">
       {filteredCharacters.map((char, i) => (
         <RelatedCharacter key={i} character={char} />
       ))}
+      {/* <Link href={'/'}>Go Back</Link> */}
     </div>
   );
 };

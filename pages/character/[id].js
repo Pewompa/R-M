@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import RelatedCharacterList from '../../components/RelatedCharacterList';
 
 const Charactero = ({ character, relatedCharactersArray }) => {
   return (
     <>
+      <Link href={'/'}>Go Back</Link>
       <Image
         src={character.image}
         alt={character.name}
@@ -18,6 +20,9 @@ const Charactero = ({ character, relatedCharactersArray }) => {
         relatedCharacters={relatedCharactersArray}
         characterId={character.id}
       />
+      <button className="bg-black text-white mt-10 flex justify-left gap-5">
+        <Link href={'/'}>Go Back</Link>
+      </button>
     </>
   );
 };

@@ -29,7 +29,7 @@ export default function Home({ characters }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const response = await fetch('https://rickandmortyapi.com/api/character/');
   console.log(response);
   const characters = await response.json();

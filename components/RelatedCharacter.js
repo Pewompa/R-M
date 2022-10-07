@@ -1,10 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const Character = ({ character }) => {
-  const locationId = character.location.url[character.location.url.length - 1];
+const RelatedCharacter = ({ character }) => {
   return (
-    <Link href={`/character/${character.id}+${locationId}/`}>
+    <Link
+      // href="https://rickandmortyapi.com/api/character/[id]"
+      // as={`https://rickandmortyapi.com/api/character/${character.id}`}
+      href={`/character/${character.id}`}
+    >
       <a>
         <Image
           src={character.image}
@@ -19,4 +22,4 @@ const Character = ({ character }) => {
   );
 };
 
-export default Character;
+export default RelatedCharacter;

@@ -1,7 +1,6 @@
 import Character from './Character';
 
 const CharacterList = ({ characters }) => {
-  console.log(characters);
   return (
     <div>
       {characters.results.map((char, i) => (

@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import Button from '../../components/Button';
-import CharacterList from '../../components/CharacterList';
-import Character from '../../components/CharacterList';
+import RelatedCharacterFetch from '../../components/RelatedCharacterFetch';
 
-const Charactero = ({ character }) => {
-  const [location, setLocation] = useState(character.location.name);
+const Charactero = ({ character, location, arr }) => {
+  // const [location, setLocation] = useState([]);
+  console.log(arr);
+  console.log(location.residents[0]);
   return (
     <>
       <Image
@@ -17,6 +17,7 @@ const Charactero = ({ character }) => {
       <h3>{character.name}</h3>
       <p>{character.location.name}</p>
       <p>Personajes que también estan en {character.location.name}</p>
+      {/* <RelatedCharacterFetch location={location}></RelatedCharacterFetch> */}
     </>
   );
 };
@@ -24,13 +25,49 @@ const Charactero = ({ character }) => {
 export default Charactero;
 
 export async function getServerSideProps(context) {
-  const response = await fetch(
-    `https://rickandmortyapi.com/api/character/${context.query.id}`
+  let id = '';
+  for (let i = 0; i < context.query.id.length; i++) {
+    if (context.query.id[i] === '+') {
+      break;
+    } else {
+      id += context.query.id[i];
+    }
+  }
+  const characterResponse = await fetch(
+    `https://rickandmortyapi.com/api/character/${id}`
   );
-  const character = await response.json();
+  const character = await characterResponse.json();
+
+  let locationId = '';
+  for (let i = context.query.id.length - 1; i > 0; i--) {
+    if (context.query.id[i] === '+') {
+      break;
+    } else {
+      locationId += context.query.id[i];
+    }
+  }
+  const locationResponse = await fetch(
+    `https://rickandmortyapi.com/api/location/${locationId}`
+  );
+  const location = await locationResponse.json();
+
+  let arr = [];
+
+  const bringCharacters = (numero) => {
+    return fetch(numero).then((response) => response.json());
+  };
+  for (let i = 0; i < location.residents.length; i++) {
+    // const response = await fetch(location.residents[i]);
+    // const relatedChar = await response.json();
+    // arr.push(relatedChar);
+    let data = await bringCharacters(location.residents[i]);
+    arr.push(data);
+  }
   return {
     props: {
       character,
+      location,
+      arr,
     },
   };
 }

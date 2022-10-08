@@ -6,8 +6,10 @@ import RelatedCharacterList from '../../components/RelatedCharacterList';
 const Charactero = ({ character, relatedCharactersArray }) => {
   return (
     <div>
-      <div className="cardo">
-        <Link href={'/'}>Go Back</Link>
+      <div className="card">
+        <button className=" text-white mt-10 flex justify-left gap-5">
+          <Link href={'/'}>Go Back</Link>
+        </button>
         <Image
           src={character.image}
           alt={character.name}
@@ -16,7 +18,15 @@ const Charactero = ({ character, relatedCharactersArray }) => {
           class="rounded"
         />
         <h3 className="text-white">{character.name}</h3>
-        <p className="text-white">{character.location.name}</p>
+        <p className="text-white">
+          <Image
+            src="/../location-mark.svg"
+            alt="location svg"
+            width="15"
+            height="15"
+          ></Image>
+          {character.location.name}
+        </p>
       </div>
       <p>Personajes que también estan en {character.location.name}</p>
 

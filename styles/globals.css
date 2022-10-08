@@ -8,10 +8,17 @@ body {
 } */
 @layer components {
   .card {
-    background-color: theme('colors.white');
+    background-color: #334155;
     border-radius: theme('borderRadius.lg');
     padding: theme('spacing.6');
     box-shadow: theme('boxShadow.xl');
+    text-align: center;
+  }
+  .card:hover {
+    -ms-transform: scale(1.15); /* IE 9 */
+    -webkit-transform: scale(1.15); /* Safari 3-8 */
+    transform: scale(1.1);
+    background-color: #5fd12e;
   }
   .cardo {
     background-color: theme('colors.black');
@@ -20,6 +27,6 @@ body {
     box-shadow: theme('boxShadow.xl');
   }
   body {
-    @apply bg-slate-700;
+    @apply bg-slate-900;
   }
 }

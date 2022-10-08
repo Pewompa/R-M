@@ -9,16 +9,20 @@ const Character = ({ character }) => {
   return (
     <Link href={`/character/${character.id}+${locationId}/`}>
       <a>
-        <div className="bg-black card">
-          <Image
+        <div className="card">
+          <img
             src={character.image}
             alt={character.name}
             width="300"
             height="300"
             class="rounded"
           />
-          <h3 className="text-white text-[14px]">{character.name}</h3>
-          <p className="text-white  text-[9px]">{character.location.name}</p>
+          <h3 className="text-white text-[14px] font-semi-bold">
+            {character.name}
+          </h3>
+          <p className="text-slate-300  text-[12px]">
+            {character.location.name}
+          </p>
         </div>
       </a>
     </Link>

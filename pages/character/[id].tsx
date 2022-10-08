@@ -3,16 +3,17 @@ import Link from 'next/link';
 import Router from 'next/router';
 import { useState } from 'react';
 import RelatedCharacterList from '../../components/RelatedCharacterList';
+import { GetServerSideProps, GetStaticPaths } from 'next';
+import { GetCharacterResults, Result } from '../../types';
 
 const Charactero = ({ character, relatedCharactersArray }) => {
   return (
     <div>
       <div className="flex justify-end">
-        <button
-          onClick={() => Router.back()}
-          className="bg-slate-700 hover:bg-slate-600 text-white font-semi-bold py-2 p px-4 rounded mb-3 mr-3 mt-3 "
-        >
-          <img src="/../left.png"></img>
+        <button className="bg-slate-700 hover:bg-slate-600 text-white font-semi-bold py-2 p px-4 rounded mb-3 mr-3 mt-3 ">
+          <Link href={'/'}>
+            <img src="/../home.png"></img>
+          </Link>
         </button>
       </div>
       <div className="flex align">
@@ -63,7 +64,7 @@ const Charactero = ({ character, relatedCharactersArray }) => {
 
 export default Charactero;
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   let id = '';
   for (let i = 0; i < context.query.id.length; i++) {
     if (context.query.id[i] === '+') {
@@ -75,7 +76,7 @@ export async function getServerSideProps(context) {
   const characterResponse = await fetch(
     `https://rickandmortyapi.com/api/character/${id}`
   );
-  const character = await characterResponse.json();
+  const character: GetCharacterResults = await characterResponse.json();
 
   let locationId = '';
   for (let i = context.query.id.length - 1; i > 0; i--) {
@@ -88,19 +89,15 @@ export async function getServerSideProps(context) {
   const locationResponse = await fetch(
     `https://rickandmortyapi.com/api/location/${locationId}`
   );
-  const location = await locationResponse.json();
+  const location: Result = await locationResponse.json();
 
-  let relatedCharactersArray = [];
+  let relatedCharactersArray: string[] = [];
 
-  const bringCharacters = async (locationId) => {
+  const bringCharacters = async (locationId: string) => {
     const response = await fetch(locationId);
     return await response.json();
-    // return fetch(numero).then((response) => response.json());
   };
   for (let i = 0; i < location.residents.length; i++) {
-    // const response = await fetch(location.residents[i]);
-    // const relatedChar = await response.json();
-    // arr.push(relatedChar);
     let data = await bringCharacters(location.residents[i]);
     relatedCharactersArray.push(data);
   }
@@ -108,8 +105,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       character,
-      location,
       relatedCharactersArray,
     },
   };
-}
+};

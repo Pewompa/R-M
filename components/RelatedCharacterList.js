@@ -10,7 +10,7 @@ const RelatedCharacterList = ({ relatedCharacters, characterId }) => {
   };
   func();
   return (
-    <div className="grid gap-7 grid-cols-5 grid-rows-2">
+    <div className="grid gap-7 grid-cols-5 grid-rows-2 cardo">
       {filteredCharacters.map((char, i) => (
         <RelatedCharacter key={i} character={char} />
       ))}

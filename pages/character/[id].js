@@ -6,37 +6,44 @@ import RelatedCharacterList from '../../components/RelatedCharacterList';
 const Charactero = ({ character, relatedCharactersArray }) => {
   return (
     <div>
-      <div className="card">
-        <button className=" text-white mt-10 flex justify-left gap-5">
-          <Link href={'/'}>Go Back</Link>
+      <div clasName="flex justify-center">
+        <button className="bg-slate-700 hover:bg-slate-600 text-white font-semi-bold py-2 p px-4 rounded mb-3 mr-3 mt-3 ">
+          <Link href={'/'}>
+            <img src="/../left.png"></img>
+          </Link>
         </button>
-        <Image
-          src={character.image}
-          alt={character.name}
-          width="300"
-          height="300"
-          class="rounded"
-        />
-        <h3 className="text-white">{character.name}</h3>
-        <p className="text-white">
-          <Image
-            src="/../location-mark.svg"
-            alt="location svg"
-            width="15"
-            height="15"
-          ></Image>
-          {character.location.name}
-        </p>
       </div>
+      <Image
+        src={character.image}
+        alt={character.name}
+        width="300"
+        height="300"
+        class="rounded"
+      />
+      <h3 className="text-white">{character.name}</h3>
+      <p className="text-white">
+        <Image
+          src="/../location-mark.svg"
+          alt="location svg"
+          width="15"
+          height="15"
+        ></Image>
+        {character.location.name}
+      </p>
+
       <p>Personajes que también estan en {character.location.name}</p>
 
       <RelatedCharacterList
         relatedCharacters={relatedCharactersArray}
         characterId={character.id}
       />
-      <button className="bg-black text-white mt-10 flex justify-left gap-5">
-        <Link href={'/'}>Go Back</Link>
-      </button>
+      <div clasName="flex justify-end">
+        <button className="bg-slate-700 hover:bg-slate-600 text-white font-semi-bold py-2 p px-4 rounded mb-3 mr-3 mt-3 ">
+          <Link href={'/'}>
+            <img src="/../left.png"></img>
+          </Link>
+        </button>
+      </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@ const RelatedCharacter = ({ character }) => {
   const locationId = character.location.url[character.location.url.length - 1];
   return (
     <Link href={`/character/${character.id}+${locationId}/`}>
-      <div className="bg-black card">
+      <div className="card cursor-pointer">
         <a>
           <Image
             src={character.image}

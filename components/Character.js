@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Modal from './Modal';
 
-const Character = ({ character }) => {
+const Character = ({ character, currentUrl }) => {
   const locationId = character.location.url[character.location.url.length - 1];
-
+  const url = currentUrl[currentUrl.length - 1];
   return (
     <Link href={`/character/${character.id}+${locationId}/`}>
       <a>

@@ -7,6 +7,9 @@ import styles from '../styles/Home.module.css';
 
 export default function Home({ characters }) {
   const [character, setCharacter] = useState(characters);
+  const [currentUrl, setCurrentUrl] = useState(
+    'https://rickandmortyapi.com/api/character/?page=1'
+  );
 
   const fetchCharacters = async (url) => {
     const response = await fetch(url);
@@ -14,6 +17,10 @@ export default function Home({ characters }) {
     setCharacter(nextCharacter);
   };
 
+  const handleNext = () => {
+    setCurrentUrl(character.info.next);
+  };
+  console.log(currentUrl);
   return (
     <div>
       <Head>
@@ -39,7 +46,10 @@ export default function Home({ characters }) {
         </button>
         <button
           className="bg-slate-700 hover:bg-slate-600 text-white font-semi-bold py-2 px-4 rounded mb-3"
-          onClick={() => fetchCharacters(character.info.next)}
+          onClick={() => {
+            fetchCharacters(character.info.next);
+            handleNext();
+          }}
         >
           Next
         </button>
@@ -47,6 +57,7 @@ export default function Home({ characters }) {
       <div className="cardo">
         <CharacterList
           characters={character}
+          currentUrl={currentUrl}
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
         ></CharacterList>
       </div>
@@ -59,7 +70,9 @@ export default function Home({ characters }) {
         </button>
         <button
           className="bg-slate-700 hover:bg-slate-600 text-white font-semi-bold py-2 px-4 rounded mb-3 mt-3 "
-          onClick={() => fetchCharacters(character.info.next)}
+          onClick={() => {
+            fetchCharacters(character.info.next);
+          }}
         >
           Next
         </button>

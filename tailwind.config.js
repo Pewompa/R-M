@@ -5,7 +5,9 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      horror: ['horror'],
+    },
   },
   plugins: [],
 };

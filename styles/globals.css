@@ -29,4 +29,9 @@ body {
   body {
     @apply bg-slate-900;
   }
+  @font-face {
+    font-family: 'horror';
+    src: url('/get_schwifty.woff') format('woff'),
+      url('/get_schwifty.ttf') format('truetype');
+  }
 }

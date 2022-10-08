@@ -1,25 +1,18 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import { useState } from 'react';
 import CharacterList from '../components/CharacterList';
-import Layout from '../components/Layout';
-import styles from '../styles/Home.module.css';
+import { GetServerSideProps, NextPage } from 'next';
+import { Character, GetCharacterResults } from '../types';
 
 export default function Home({ characters }) {
   const [character, setCharacter] = useState(characters);
-  const [currentUrl, setCurrentUrl] = useState(
-    'https://rickandmortyapi.com/api/character/?page=1'
-  );
 
-  const fetchCharacters = async (url) => {
+  const fetchCharacters = async (url: string) => {
     const response = await fetch(url);
     const nextCharacter = await response.json();
     setCharacter(nextCharacter);
   };
 
-  const handleNext = () => {
-    setCurrentUrl(character.info.next);
-  };
   return (
     <div>
       <Head>
@@ -47,7 +40,6 @@ export default function Home({ characters }) {
           className="bg-slate-700 hover:bg-slate-600 text-white font-semi-bold py-2 px-4 rounded mb-3"
           onClick={() => {
             fetchCharacters(character.info.next);
-            handleNext();
           }}
         >
           Next
@@ -56,7 +48,6 @@ export default function Home({ characters }) {
       <div className="cardo">
         <CharacterList
           characters={character}
-          currentUrl={currentUrl}
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
         ></CharacterList>
       </div>
@@ -80,12 +71,12 @@ export default function Home({ characters }) {
   );
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   const response = await fetch('https://rickandmortyapi.com/api/character/');
-  const characters = await response.json();
+  const characters: GetCharacterResults = await response.json();
   return {
     props: {
       characters,
     },
   };
-}
+};

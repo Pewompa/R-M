@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import { useState } from 'react';
+import Modal from './Modal';
 
-const RelatedCharacter = ({ character }) => {
+const Character = ({ character }) => {
   let locationId = '';
   for (let i = character.location.url.length - 1; i > 0; i--) {
     if (character.location.url[i] === '/') {
@@ -11,22 +12,28 @@ const RelatedCharacter = ({ character }) => {
       locationId += character.location.url[i];
     }
   }
+
   return (
     <Link href={`/character/${character.id}+${locationId}/`}>
-      <div className="card cursor-pointer">
-        <a>
-          <Image
+      <a>
+        <div className="card">
+          <img
             src={character.image}
             alt={character.name}
             width="300"
             height="300"
-            class="rounded"
+            className="rounded"
           />
-          <h3 className="text-white mt-2 leading-6">{character.name}</h3>
-        </a>
-      </div>
+          <h3 className="text-white text-[14px] font-semi-bold mt-2 leading-6">
+            {character.name}
+          </h3>
+          <p className="text-slate-300  text-[12px]">
+            {character.location.name}
+          </p>
+        </div>
+      </a>
     </Link>
   );
 };
 
-export default RelatedCharacter;
+export default Character;

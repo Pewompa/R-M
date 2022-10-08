@@ -1,16 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Router from 'next/router';
 import { useState } from 'react';
 import RelatedCharacterList from '../../components/RelatedCharacterList';
 
 const Charactero = ({ character, relatedCharactersArray }) => {
-  const router = useRouter();
   return (
     <div>
       <div className="flex justify-end">
         <button
-          onClick={() => router.back()}
+          onClick={() => Router.back()}
           className="bg-slate-700 hover:bg-slate-600 text-white font-semi-bold py-2 p px-4 rounded mb-3 mr-3 mt-3 "
         >
           <img src="/../left.png"></img>
@@ -51,10 +50,11 @@ const Charactero = ({ character, relatedCharactersArray }) => {
         characterId={character.id}
       />
       <div className="flex justify-end">
-        <button className="bg-slate-700 hover:bg-slate-600 text-white font-semi-bold py-2 p px-4 rounded mb-3 mr-3 mt-3 ">
-          <Link href={'/'}>
-            <img src="/../left.png"></img>
-          </Link>
+        <button
+          onClick={() => Router.back()}
+          className="bg-slate-700 hover:bg-slate-600 text-white font-semi-bold py-2 p px-4 rounded mb-3 mr-3 mt-3 "
+        >
+          <img src="/../left.png"></img>
         </button>
       </div>
     </div>

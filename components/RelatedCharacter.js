@@ -3,7 +3,14 @@ import Link from 'next/link';
 import React from 'react';
 
 const RelatedCharacter = ({ character }) => {
-  const locationId = character.location.url[character.location.url.length - 1];
+  let locationId = '';
+  for (let i = character.location.url.length - 1; i > 0; i--) {
+    if (character.location.url[i] === '/') {
+      break;
+    } else {
+      locationId += character.location.url[i];
+    }
+  }
   return (
     <Link href={`/character/${character.id}+${locationId}/`}>
       <div className="card cursor-pointer">
@@ -15,7 +22,7 @@ const RelatedCharacter = ({ character }) => {
             height="300"
             class="rounded"
           />
-          <h3 className="text-white">{character.name}</h3>
+          <h3 className="text-white mt-2 leading-6">{character.name}</h3>
         </a>
       </div>
     </Link>

@@ -4,7 +4,14 @@ import { useState } from 'react';
 import Modal from './Modal';
 
 const Character = ({ character, currentUrl }) => {
-  const locationId = character.location.url[character.location.url.length - 1];
+  let locationId = '';
+  for (let i = character.location.url.length - 1; i > 0; i--) {
+    if (character.location.url[i] === '/') {
+      break;
+    } else {
+      locationId += character.location.url[i];
+    }
+  }
   const url = currentUrl[currentUrl.length - 1];
   return (
     <Link href={`/character/${character.id}+${locationId}/`}>
@@ -17,7 +24,7 @@ const Character = ({ character, currentUrl }) => {
             height="300"
             class="rounded"
           />
-          <h3 className="text-white text-[14px] font-semi-bold">
+          <h3 className="text-white text-[14px] font-semi-bold mt-2 leading-6">
             {character.name}
           </h3>
           <p className="text-slate-300  text-[12px]">

@@ -20,7 +20,6 @@ export default function Home({ characters }) {
   const handleNext = () => {
     setCurrentUrl(character.info.next);
   };
-  console.log(currentUrl);
   return (
     <div>
       <Head>
@@ -83,7 +82,6 @@ export default function Home({ characters }) {
 
 export async function getServerSideProps() {
   const response = await fetch('https://rickandmortyapi.com/api/character/');
-  console.log(response);
   const characters = await response.json();
   return {
     props: {

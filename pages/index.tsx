@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import CharacterList from '../components/CharacterList';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 import { CharacterResults } from '../types';
 
 export default function Home({ characters }) {
@@ -21,6 +21,7 @@ export default function Home({ characters }) {
         <link rel="icon" href="/rick.png" />
       </Head>
       <header className="mb-19">
+        {/* Utilizando <img> porque Image de next pierde un poco de definición */}
         <img
           src="/logos.png"
           alt="image"
@@ -47,10 +48,7 @@ export default function Home({ characters }) {
       </div>
       <div className="wrap">
         {/* Lista de personajes en la página princial */}
-        <CharacterList
-          characters={character}
-          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
-        ></CharacterList>
+        <CharacterList characters={character}></CharacterList>
       </div>
       <div className="flex justify-end">
         <button

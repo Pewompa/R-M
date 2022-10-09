@@ -5,7 +5,7 @@ import RelatedCharacterList from '../../components/RelatedCharacterList';
 import { GetServerSideProps } from 'next';
 import { CharacterResults, Result } from '../../types';
 
-const Charactero = ({ character, relatedCharactersArray }) => {
+const Character = ({ character, relatedCharactersArray }) => {
   return (
     <div>
       <div className="flex justify-end">
@@ -61,36 +61,16 @@ const Charactero = ({ character, relatedCharactersArray }) => {
   );
 };
 
-export default Charactero;
+export default Character;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  //Obtenemos el id del personaje al que hemos hecho click (disponible en el context.query)
-  let id = '';
-  for (let i = 0; i < context.query.id.length; i++) {
-    if (context.query.id[i] === '+') {
-      break;
-    } else {
-      id += context.query.id[i];
-    }
-  }
-  //Llamamos a la api con el id del personaje
   const characterResponse = await fetch(
-    `https://rickandmortyapi.com/api/character/${id}`
+    `https://rickandmortyapi.com/api/character/${context.query.id}`
   );
   const character: CharacterResults = await characterResponse.json();
 
-  //Obtenemos el id de la location del personaje en el context.query
-  let locationId = '';
-  for (let i = context.query.id.length - 1; i > 0; i--) {
-    if (context.query.id[i] === '+') {
-      break;
-    } else {
-      locationId += context.query.id[i];
-    }
-  }
-  //Llamamos la api con la location del personaje
   const locationResponse = await fetch(
-    `https://rickandmortyapi.com/api/location/${locationId}`
+    `https://rickandmortyapi.com/api/location/${context.query.location}`
   );
   const charactersInTheSameLocation: Result = await locationResponse.json();
 

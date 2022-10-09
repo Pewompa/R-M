@@ -12,6 +12,7 @@ const RelatedCharacter = ({ character }) => {
     }
   }
   return (
+    //Link para poder clicar los personajes dentro de la página de personajes en la misma location
     <Link href={`/character/${character.id}+${locationId}/`}>
       <div className="card cursor-pointer">
         <a>

@@ -1,9 +1,9 @@
-export interface GetCharacterResults {
+export interface CharacterResults {
   info: Info;
-  results: Character[];
+  results: CharacterT[];
 }
 
-export interface GetLocationResults {
+export interface LocationResults {
   info: Info;
   results: Result[];
 }
@@ -14,7 +14,7 @@ export interface Info {
   prev: null;
 }
 
-export interface Character {
+export interface CharacterT {
   id: number;
   name: string;
   status: Status;

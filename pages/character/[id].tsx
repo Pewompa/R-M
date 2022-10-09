@@ -100,7 +100,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   //Por alguna razón, la función no funciona con las locations "Citadel of ricks" y "Earth (replacement version)"
 
   // let relatedCharactersArray = await Promise.all(
-  //   charactersInTheSameLocation.residents.map(async (char, i) => {
+  // charactersInTheSameLocation.residents.map(async (char) => {
   //     return await bringCharacters(char);
   //   })
   // );

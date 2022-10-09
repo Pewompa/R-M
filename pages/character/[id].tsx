@@ -83,7 +83,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   };
 
-  //Llamamos la api de los personajes con cada uno de los personajes del array de location
+  //Llamamos la api de los personajes con cada uno de los personajes en array de location
   let relatedCharactersArray = [];
 
   for (let i = 0; i < charactersInTheSameLocation.residents.length; i++) {

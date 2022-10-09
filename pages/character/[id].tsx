@@ -5,7 +5,7 @@ import { GetServerSideProps } from 'next';
 import { CharacterResults, Result } from '../../types';
 import CharacterList from '../../components/CharacterList';
 
-const Character = ({ character, relatedCharactersArray }) => {
+const Character = ({ character, filteredCharactersArray }) => {
   return (
     <div>
       <div className="flex justify-end">
@@ -45,8 +45,8 @@ const Character = ({ character, relatedCharactersArray }) => {
         </p>
       </div>
       <CharacterList
-        characters={relatedCharactersArray}
-        characterId={character.id}
+        characters={filteredCharactersArray}
+        withLocation={false}
       />
       <div className="flex justify-end">
         <button
@@ -84,12 +84,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 
   //Llamamos la api de los personajes con cada uno de los personajes del array de location
-  let relatedCharactersArray: string[] = [];
+  let relatedCharactersArray = [];
 
   for (let i = 0; i < charactersInTheSameLocation.residents.length; i++) {
     let data = await bringCharacters(charactersInTheSameLocation.residents[i]);
     relatedCharactersArray.push(data);
   }
+
+  let filteredCharactersArray = relatedCharactersArray.filter(
+    (char) => char.id.toString() !== context.query.id
+  );
 
   //Esta función de abajo reduce la complejidad de las llamadas ya que a diferencia del for loop, map no espera a que la promesa se resuelva,
   //simplemente a que se devuelva. Promise.all se encarga de esperar a que estas promesas se resuelvan.
@@ -97,13 +101,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // let relatedCharactersArray = await Promise.all(
   //   charactersInTheSameLocation.residents.map(async (char, i) => {
-  //     return await bringCharacters(charactersInTheSameLocation.residents[i]);
+  //     return await bringCharacters(char);
   //   })
   // );
+
   return {
     props: {
       character,
-      relatedCharactersArray,
+      filteredCharactersArray,
     },
   };
 };

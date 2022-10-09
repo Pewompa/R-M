@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const Character = ({ character }) => {
+const Character = ({ character, withLocation }) => {
   let locationId = character.location.url.substring(
     character.location.url.indexOf('location/') + 9
   );
@@ -22,7 +22,11 @@ const Character = ({ character }) => {
         <h3 className="text-white text-[14px] font-semi-bold mt-2 leading-6">
           {character.name}
         </h3>
-        <p className="text-slate-300  text-[12px]">{character.location.name}</p>
+        {withLocation && (
+          <p className="text-slate-300  text-[12px]">
+            {character.location.name}
+          </p>
+        )}
       </div>
     </Link>
   );

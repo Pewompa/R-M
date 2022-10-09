@@ -1,13 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Router from 'next/router';
-import RelatedCharacterList from '../../components/RelatedCharacterList';
 import { GetServerSideProps } from 'next';
 import { CharacterResults, Result } from '../../types';
 import CharacterList from '../../components/CharacterList';
 
 const Character = ({ character, relatedCharactersArray }) => {
-  console.log(relatedCharactersArray);
   return (
     <div>
       <div className="flex justify-end">
@@ -46,11 +44,6 @@ const Character = ({ character, relatedCharactersArray }) => {
           <span style={{ color: '#5fd12e' }}>{character.location.name}</span>
         </p>
       </div>
-
-      {/* <RelatedCharacterList
-        relatedCharacters={relatedCharactersArray}
-        characterId={character.id}
-      /> */}
       <CharacterList
         characters={relatedCharactersArray}
         characterId={character.id}

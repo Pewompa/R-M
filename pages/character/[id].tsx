@@ -1,10 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Router from 'next/router';
-import { useState } from 'react';
 import RelatedCharacterList from '../../components/RelatedCharacterList';
-import { GetServerSideProps, GetStaticPaths } from 'next';
-import { GetCharacterResults, Result } from '../../types';
+import { GetServerSideProps } from 'next';
+import { CharacterResults, Result } from '../../types';
 
 const Charactero = ({ character, relatedCharactersArray }) => {
   return (
@@ -65,6 +64,7 @@ const Charactero = ({ character, relatedCharactersArray }) => {
 export default Charactero;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  //Obtenemos el id del personaje al que hemos hecho click (disponible en el context.query)
   let id = '';
   for (let i = 0; i < context.query.id.length; i++) {
     if (context.query.id[i] === '+') {
@@ -73,11 +73,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       id += context.query.id[i];
     }
   }
+  //Llamamos a la api con el id del personaje
   const characterResponse = await fetch(
     `https://rickandmortyapi.com/api/character/${id}`
   );
-  const character: GetCharacterResults = await characterResponse.json();
+  const character: CharacterResults = await characterResponse.json();
 
+  //Obtenemos el id de la location del personaje en el context.query
   let locationId = '';
   for (let i = context.query.id.length - 1; i > 0; i--) {
     if (context.query.id[i] === '+') {
@@ -86,22 +88,39 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       locationId += context.query.id[i];
     }
   }
+  //Llamamos la api con la location del personaje
   const locationResponse = await fetch(
     `https://rickandmortyapi.com/api/location/${locationId}`
   );
-  const location: Result = await locationResponse.json();
+  const charactersInTheSameLocation: Result = await locationResponse.json();
 
+  //función auxiliar para obtener todos los personajes que también se encuentran en la misma location que el personaje al que hemos clicado
+  const bringCharacters = async (locationId: string) => {
+    try {
+      const response = await fetch(locationId);
+      return response.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //Llamamos la api de los personajes con cada uno de los personajes del array de location
   let relatedCharactersArray: string[] = [];
 
-  const bringCharacters = async (locationId: string) => {
-    const response = await fetch(locationId);
-    return await response.json();
-  };
-  for (let i = 0; i < location.residents.length; i++) {
-    let data = await bringCharacters(location.residents[i]);
+  for (let i = 0; i < charactersInTheSameLocation.residents.length; i++) {
+    let data = await bringCharacters(charactersInTheSameLocation.residents[i]);
     relatedCharactersArray.push(data);
   }
 
+  //Esta función de abajo reduce la complejidad de las llamadas ya que a diferencia del for loop, map no espera a que la promesa se resuelva
+  //simplemente a que se devuelva. Promise.all se encarga de esperar a que estas promesas se resuelvan
+  //Por alguna razón, la función no funciona con las locations "Citadel of ricks" y "Earth (replacement version)"
+
+  // let relatedCharactersArray = await Promise.all(
+  //   location.residents.map(async (char, i) => {
+  //     return await bringCharacters(charactersInTheSameLocation.residents[i]);
+  //   })
+  // );
   return {
     props: {
       character,

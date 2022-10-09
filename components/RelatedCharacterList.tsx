@@ -3,6 +3,7 @@ import RelatedCharacter from './RelatedCharacter';
 import { CharacterT } from '../types';
 
 const RelatedCharacterList = ({ relatedCharacters, characterId }) => {
+  console.log(relatedCharacters);
   return (
     <div className="grid gap-7 grid-cols-5 grid-rows-2 wrap">
       {relatedCharacters

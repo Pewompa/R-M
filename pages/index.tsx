@@ -48,7 +48,7 @@ export default function Home({ characters }) {
       </div>
       <div className="wrap">
         {/* Lista de personajes en la página princial */}
-        <CharacterList characters={character}></CharacterList>
+        <CharacterList characters={character} characterId=""></CharacterList>
       </div>
       <div className="flex justify-end">
         <button
